@@ -1,10 +1,18 @@
 import React from 'react'
 import { View, Text, StyleSheet} from 'react-native'
-
+import { Picker } from '@react-native-picker/picker'
 const Formulario = () => {
     return (
         <View>
             <Text style={styles.label}>Moneda</Text>
+            <Picker>
+                <Picker.Item label="- Seleccione -" value=""/>
+                <Picker.Item label="Dolar EEUU" value="USD"/>
+                <Picker.Item label="Peso Mexicano" value="MXN"/>
+                <Picker.Item label="Euro" value="EUR"/>
+                <Picker.Item label="Libra Esterlina" value="GBP"/>
+
+            </Picker>
             <Text style={styles.label}>Criptomoneda</Text>
         </View>
     )
