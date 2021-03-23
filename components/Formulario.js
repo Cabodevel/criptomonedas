@@ -1,12 +1,11 @@
 import React, { useState, useEffect} from 'react'
-import { View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet, TouchableHighlight, Alert} from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import axios from 'axios';
 
-const Formulario = () => {
-    const [moneda, setMoneda] = useState('');
-    const [cryptoMoneda, setCryptoMoneda] = useState('');
-    const [cryptoMonedas, setcryptoMonedas] = useState('');
+const Formulario = ({moneda, cryptoMoneda, setMoneda, setCryptoMoneda, setConsultaAPI}) => {
+
+    const [cryptoMonedas, setcryptoMonedas] = useState([]);
 
     useEffect(() => {
         const consultarAPI = async () => {
@@ -24,6 +23,27 @@ const Formulario = () => {
 
     const obtenerCriptoMoneda = crypto => {
         setCryptoMoneda(crypto);
+    }
+
+    const cotizarPrecio = () =>{
+        if(moneda.trim() === '' || cryptoMoneda.trim() === ''){
+            mostrarAlerta();
+            return;
+        }
+        else{
+            setConsultaAPI(true)
+        }
+    }
+
+    const mostrarAlerta = () => {
+        Alert.alert(
+            "Error",
+            "Ambos campos son obligatorios",
+            [
+                {text: "Ok"}
+            ]
+
+        )
     }
 
     return (
@@ -52,6 +72,12 @@ const Formulario = () => {
                     <Picker.Item key={cripto.CoinInfo.Id} label={cripto.CoinInfo.FullName} value={cripto.CoinInfo.Name}/>
                 ))}
             </Picker>
+            <TouchableHighlight
+                style={styles.btnCotizar}
+                onPress={() => cotizarPrecio()}
+            >
+                <Text style={styles.textoCotizar}>Cotizar</Text>
+            </TouchableHighlight>
         </View>
     )
 }
@@ -62,6 +88,18 @@ const styles  = StyleSheet.create({
         textTransform: 'uppercase',
         fontSize: 22, 
         marginVertical: 20
+    },
+    btnCotizar: {
+        backgroundColor: "#5e49e2",
+        padding: 10,
+        marginTop: 20
+    },
+    textoCotizar:{
+        color: "#FFF",
+        fontSize: 18,
+        fontFamily: "Lato-Black",
+        textTransform: "uppercase",
+        textAlign: "center"
     }
 })
 

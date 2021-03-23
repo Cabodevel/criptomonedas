@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Image, 
@@ -18,12 +18,21 @@ import Formulario from './components/Formulario'
 
 const App = () => {
 
+  const [moneda, setMoneda] = useState('');
+  const [cryptoMoneda, setCryptoMoneda] = useState('');
+  const [consultarAPI, setconsultarAPI] = useState(false)
   return (
    <>
     <Header />
     <Image style={styles.imagen} source={require('./assets/img/cryptomonedas.png')}/> 
     <View style={styles.contenido}>
-      <Formulario />
+      <Formulario 
+        moneda={moneda}
+        cryptoMoneda={cryptoMoneda}
+        setMoneda={setMoneda}
+        setCryptoMoneda={setCryptoMoneda}
+        setConsultarAPI={setconsultarAPI}
+      />
     </View>
    </>
   );
