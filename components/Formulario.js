@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableHighlight, Alert} from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import axios from 'axios';
 
-const Formulario = ({moneda, cryptoMoneda, setMoneda, setCryptoMoneda, setConsultaAPI}) => {
+const Formulario = ({moneda, cryptoMoneda, setMoneda, setCryptoMoneda, setConsultarAPI}) => {
 
     const [cryptoMonedas, setcryptoMonedas] = useState([]);
 
@@ -31,7 +31,7 @@ const Formulario = ({moneda, cryptoMoneda, setMoneda, setCryptoMoneda, setConsul
             return;
         }
         else{
-            setConsultaAPI(true)
+            setConsultarAPI(true)
         }
     }
 

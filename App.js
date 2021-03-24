@@ -6,21 +6,38 @@
  * @flow strict-local
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Image, 
-  View
+  View,
+  ActivityIndicator
 } from 'react-native';
 
 import Header from './components/Header'
 import Formulario from './components/Formulario'
+import axios from 'axios';
 
 const App = () => {
 
   const [moneda, setMoneda] = useState('');
   const [cryptoMoneda, setCryptoMoneda] = useState('');
   const [consultarAPI, setconsultarAPI] = useState(false)
+  const [apiResult, setApiResult] = useState({});
+
+  
+
+  useEffect(() => {
+    const consultarCryptoMoneda = async () =>{
+        if(consultarAPI){
+          const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptoMoneda}&tsyms=${moneda}`
+          var result = await axios.get(url);
+          setApiResult(result.data.DISPLAY[cryptoMoneda][moneda])
+          setConsultarAPI(false);
+        }
+    }
+    consultarCryptoMoneda();
+  }, [consultarAPI])
   return (
    <>
     <Header />
